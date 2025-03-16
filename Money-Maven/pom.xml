@@ -23,6 +23,14 @@
 			<version>3.0.0-M7</version>
 			<type>maven-plugin</type>
 		</dependency>
+
+        <!-- EvoSuite Dependencies -->
+        <!-- <dependency>
+            <groupId>org.evosuite</groupId>
+            <artifactId>evosuite-standalone-runtime</artifactId>
+            <version>1.0.6</version>
+            <scope>test</scope>
+        </dependency> -->
 	</dependencies>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -30,6 +38,22 @@
 	</properties>
 	<build>
 		<plugins>
+		<plugin>
+			<groupId>org.pitest</groupId>
+			<artifactId>pitest-maven</artifactId>
+			<version>1.17.0</version>
+			<configuration>
+			<!-- Target the production classes → -->
+			<targetClasses>
+			<param>maven.Money</param>
+			</targetClasses>
+			<!-- Target only test classes, e.g. those ending with Test → -->
+			<targetTests>
+			<param>maven.MoneyTest</param>
+			</targetTests>
+			</configuration>
+		</plugin>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -44,6 +68,22 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+            <!-- EvoSuite Plugin -->
+            <!-- <plugin>
+                <groupId>org.evosuite.plugins</groupId>
+                <artifactId>evosuite-maven-plugin</artifactId>
+                <version>1.0.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare</goal>
+                        </goals>
+                        <phase>process-test-classes</phase>
+                    </execution>
+                </executions>
+            </plugin> -->
+
 		</plugins>
 	</build>
 </project>
